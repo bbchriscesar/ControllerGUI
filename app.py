@@ -10,9 +10,9 @@ BAUD_RATE = 9600
 def send_command(port, command):
     try:
         with serial.Serial(port, BAUD_RATE, timeout=1) as ser:
-            time.sleep(2)  # Wait for the connection to establish
+            time.sleep(2)
             ser.write(command.encode())
-            time.sleep(0.5)  # Wait a bit for the command to be processed
+            time.sleep(0.5)
         return f"Sent command: {command} to port: {port}"
     except serial.SerialException as e:
         return f"Error: {str(e)}"
