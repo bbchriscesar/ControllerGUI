@@ -10,7 +10,6 @@ This is a simple web application to control a stepper motor using Flask and pySe
 
 ## Installation
 
-1. Clone the repository:
    ```bash
    python -m ensurepip --upgrade
    python -m pip install --upgrade setuptools
