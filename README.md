@@ -8,9 +8,3 @@ This is a simple web application to control a stepper motor using Flask and pySe
 - **Flask** for the web application
 - **pySerial** for serial communication
 
-## Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/stepper-motor-control.git
-   cd stepper-motor-control
