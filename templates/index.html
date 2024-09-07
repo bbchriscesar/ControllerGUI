@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stepper Motor Control</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #333;
+        }
+        input {
+            width: 20%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s, opacity 0.3s;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stepper Motor Control</h1>
+    <input type="text" id="portInput" placeholder="Enter Serial Port (e.g., COM7)" value="COM7">
+    <br>
+    <button onclick="rotate('f')" id="forwardBtn">Rotate Forward</button>
+    <button onclick="rotate('b')" id="backwardBtn">Rotate Backward</button>
+
+    <script>
+        function rotate(direction) {
+            const btn = direction === 'f' ? document.getElementById('forwardBtn') : document.getElementById('backwardBtn');
+            const port = document.getElementById('portInput').value;
+
+            if (!port) {
+                alert('Please enter a Serial Port');
+                return;
+            }
+
+            btn.disabled = true;
+
+            axios.post('/rotate', { direction: direction, port: port })
+                .then(function (response) {
+                    alert(response.data.message);
+                })
+                .catch(function (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please check the console.');
+                })
+                .finally(function () {
+                    setTimeout(() => {
+                        btn.disabled = false;
+                    }, 2000);
+                });
+        }
+    </script>
+</body>
+</html>
